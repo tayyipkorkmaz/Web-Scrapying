@@ -16,11 +16,11 @@ class KitapsepetiSpider(scrapy.Spider):
     def parse_category(self, response):
         """Parse category page and yield next page if exists"""
         category_name = response.xpath("//title/text()").get().split(" |")[0]
-        kitaplar = []
         # Get books
         for product in response.css(
             "div.fl.col-12.catalogWrapper div.col-3.col-md-4.col-sm-6.col-xs-6.p-right.mb.productItem.zoom.ease"
         ):
+            state_stock = product.css("a.listStockAlert::text").get().strip()
             name = (
                 product.css(
                     "div.box.col-12.text-center a.text-description.detailLink::text"
@@ -45,15 +45,16 @@ class KitapsepetiSpider(scrapy.Spider):
                 price = price.replace(".", "").replace(",", ".")
                 book_price = float(price)
 
-            # Create book item
-            kitaplar.append(
-                KitapSepetiBooks(
-                    book_name=name,
-                    publisher_name=publisher,
-                    book_author=author,
-                    book_price=book_price,
+            # If book is in stock, yield book item
+            if state_stock != "Stokta Yok":
+                self.kitaplar.append(
+                    KitapSepetiBooks(
+                        book_name=name,
+                        publisher_name=publisher,
+                        book_author=author,
+                        book_price=book_price,
+                    )
                 )
-            )
         # Get next page if exists
         next_page = response.xpath(
             '//div[@class="fn d-inline-block col-sm-12 text-center productPager"]/a[@class="next"]/@href'
@@ -65,12 +66,13 @@ class KitapsepetiSpider(scrapy.Spider):
         # Yield category item
         else:
             product_item = KitapSepetiProducts(
-                category_name=category_name, books=kitaplar
+                category_name=category_name, books=self.kitaplar
             )
             yield product_item
 
     def parse(self, response):
         """Parse main page and yield category pages"""
+        self.kitaplar = []
         self.header_link = "https://www.kitapsepeti.com"
         categories = response.xpath(
             "//div[@id='footerMiddle']//a[contains(@href, '/edebiyat') or contains(@href, '/cocuk-kitaplari') or contains(@href, '/tarih-kitaplari') or contains(@href, '/saglik') or contains(@href, '/yemek-kitaplari')]"
