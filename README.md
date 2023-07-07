@@ -20,22 +20,41 @@ Bu pipeline, "www.kitapyurdu.com" ve "www.kitapsepeti.com" web sitelerinde kazı
   - `mongo_uri`: MongoDB bağlantı URI'si.
   - `mongo_db`: MongoDB veritabanı adı.
   - `collection_name`: Kaydedilecek verilerin saklanacağı koleksiyon adı.
+    
+
+Database Örnek Kod Çıktısı:
+```
+ "category_title": "Akademik",
+        "yeni_cikanlar": [
+            {
+                "book_name": "Fransa’da Yerel Yönetimler Ve Yerelleşme Reformları (Fransız İhtilalinden 2020’lere)",
+                "book_publisher": "SON ÇAĞ YAYINLARI-AKADEMİK",
+                "book_author": "  Turgut Atasoy",
+                "book_price": 190.75
+            },
+```
+
+MongoDB Çıktısı:
+
+![Screenshot from 2023-07-07 13-24-36](https://github.com/tayyipkorkmaz/Web-Scrapying/assets/58427584/3ae2ceae-91f0-48ad-9dc3-140bcdd7ccaf)
+
+
 
 ## Quickstart
 
 Repoyu klonlayın ve içine girin
 ```shell
 git clone https://github.com/tayyipkorkmaz/Web-Scrapying.git
-cd smartmaple
+cd Web-Scrapying/smartmaple
 ```
 
 Poetry'yi indirin ve bağımlılıkları indirin
 ```shell
 python -m pip install poetry
-python -m poetry install
+poetry install
 poetry shell
 ```
 Spiderleri başlatın
 ```shell
-python -m poetry run python main.py
+poetry run python main.py
 ```
