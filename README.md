@@ -1,9 +1,9 @@
 # Web-Scrapying
-"www.kitapyurdu.com" ve "www.kitapsepeti.com" web sitesini taramak ve farklı kategorilerdeki kitaplar hakkında bilgi toplamak için tasarlanmıştır. Örümcek, Python dilinde yazılmış olup web kazıma işlemleri için Scrapy çerçevesini kullanmaktadır.
+"www.kitapyurdu.com" ve "www.kitapsepeti.com" web sitesini taramak ve farklı kategorilerdeki kitaplar hakkında bilgi toplamak için tasarlanmıştır. Örümcek, Python dilinde yazılmış olup web kazıma işlemleri için Scrapy framework kullanmaktadır.
 
 # Özellikler
 
-  - Kategori sayfasını kazıyarak kitap bilgilerini, yazar, yayınevi ve fiyat gibi verier toplar.
+  - Kategori sayfasını kazıyarak kitap bilgilerini, yazar, yayınevi ve fiyat gibi veriler toplar.
   - Sayfalama işlemini yöneterek her kategorideki birden çok sayfayı tarar.
   - Scrapy'nin XPath ve CSS seçicilerini kullanarak HTML yanıtından veri çıkarır.
   - Kazıma verilerini işlemek için özel ayarlar ve veri akışı (pipeline) kullanır.
